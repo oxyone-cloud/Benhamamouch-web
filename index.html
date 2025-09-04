@@ -198,3 +198,223 @@
   </div>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Messagerie SSCIappbluetooth</title>
+  <script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js";
+
+    // Configuration Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAn2FknQxeE5JyWmz3w4K0B-5-sAAd_oJs",
+      authDomain: "cold-service-othman.firebaseapp.com",
+      projectId: "cold-service-othman",
+      storageBucket: "cold-service-othman.firebasestorage.app",
+      messagingSenderId: "983351313049",
+      appId: "1:983351313049:web:d14de2b2749dc5f2522e08"
+    };
+
+    // Initialisation
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Envoyer un message
+    async function sendMessage() {
+      const pseudo = document.getElementById("pseudo").value;
+      const message = document.getElementById("message").value;
+
+      if (pseudo && message) {
+        await addDoc(collection(db, "messages"), {
+          pseudo,
+          message,
+          timestamp: new Date()
+        });
+        document.getElementById("message").value = "";
+      }
+    }
+
+    // Afficher les messages en temps réel
+    const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+    onSnapshot(q, (querySnapshot) => {
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const msg = document.createElement("p");
+        msg.textContent = `${data.pseudo} : ${data.message}`;
+        messagesDiv.appendChild(msg);
+      });
+    });
+
+    window.sendMessage = sendMessage;
+  </script>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+      background: #f1f1f1;
+      text-align: center;
+    }
+
+    #chat-box {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #messages {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-box">
+    <h2>💬 SSCI Messagerie</h2>
+    <div id="messages"></div>
+    <input id="pseudo" type="text" placeholder="Votre nom" /><br />
+    <input id="message" type="text" placeholder="Votre message" />
+    <button onclick="sendMessage()">Envoyer</button>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Messagerie SSCIappbluetooth</title>
+  <script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js";
+
+    // Configuration Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyAn2FknQxeE5JyWmz3w4K0B-5-sAAd_oJs",
+      authDomain: "cold-service-othman.firebaseapp.com",
+      projectId: "cold-service-othman",
+      storageBucket: "cold-service-othman.firebasestorage.app",
+      messagingSenderId: "983351313049",
+      appId: "1:983351313049:web:d14de2b2749dc5f2522e08"
+    };
+
+    // Initialisation
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Envoyer un message
+    async function sendMessage() {
+      const pseudo = document.getElementById("pseudo").value;
+      const message = document.getElementById("message").value;
+
+      if (pseudo && message) {
+        await addDoc(collection(db, "messages"), {
+          pseudo,
+          message,
+          timestamp: new Date()
+        });
+        document.getElementById("message").value = "";
+      }
+    }
+
+    // Afficher les messages en temps réel
+    const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+    onSnapshot(q, (querySnapshot) => {
+      const messagesDiv = document.getElementById("messages");
+      messagesDiv.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const msg = document.createElement("p");
+        msg.textContent = `${data.pseudo} : ${data.message}`;
+        messagesDiv.appendChild(msg);
+      });
+    });
+
+    window.sendMessage = sendMessage;
+  </script>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+      background: #f1f1f1;
+      text-align: center;
+    }
+
+    #chat-box {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #messages {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-box">
+    <h2>💬 SSCI Messagerie</h2>
+    <div id="messages"></div>
+    <input id="pseudo" type="text" placeholder="Votre nom" /><br />
+    <input id="message" type="text" placeholder="Votre message" />
+    <button onclick="sendMessage()">Envoyer</button>
+  </div>
+</body>
+</html>
