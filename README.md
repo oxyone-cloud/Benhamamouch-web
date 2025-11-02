@@ -1,16 +1,31 @@
-# Oxy-one-web
-# 👋 Bienvenue
-Je suis **Benhamamouch Othman** (*Oxy-One*), fondateur de **SSCI SOLUTION OF COLD**, auteur et **développeur Flutter + Firebase**.
+# Benhamamouch Web
 
+## 🌐 Overview
+**Benhamamouch Web** is the official website and portfolio platform of **Benhamamouch Othman (Oxy-One)**, founder of **SSCI Solution of Cold**.  
+The website showcases the company’s innovations, projects, and software applications, including the Oxy-One Software Suite.
 
-Fondateur de **SSCI Solution of Cold**  
-Développeur d’applications connectées et de solutions IoT ❄️
+## 🌍 Live Website
+🔗 [https://oxyone-cloud.github.io/Benhamamouch-web](https://oxyone-cloud.github.io/Benhamamouch-web)
 
-### 🌍 Freelance Platforms
-- 🎯 [Fiverr](https://fr.fiverr.com/s/DB1eY47) 
-- 💼 [Upwork](https://www.upwork.com/freelancers/~01fdca9e76e9892113?mp_source=share)
+## 🚀 Features
+- Responsive and professional web design  
+- Integration with the Oxy-One Software Suite  
+- Hosted via **GitHub Pages**  
+- Developed with clean, lightweight HTML, CSS, and JavaScript  
 
-### 💻 Projets récents
-- [SSCIAPPBluetooth](https://github.com/oxyone-cloud/SSCIAPPBluetooth)
-- [Smart Tracking App](https://github.com/oxyone-cloud/smart-tracking)
+## 🧱 Tech Stack
+- HTML  
+- CSS  
+- JavaScript  
+- GitHub Pages  
 
+## 📜 License
+Licensed under the **MIT License**.  
+Feel free to use and reference the design with proper attribution.
+
+## 👤 Author
+**Benhamamouch Othman (Oxy-One)**  
+Founder & CEO of **SSCI Solution of Cold**  
+🔗 [LinkedIn](https://www.linkedin.com/in/benhamamouch-othman)  
+📧 benhamamouchothman@cloudshell  
+🌍 [Official Website](https://oxyone-cloud.github.io/Benhamamouch-web)
