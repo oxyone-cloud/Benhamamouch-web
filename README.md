@@ -29,3 +29,5 @@ Founder & CEO of **SSCI Solution of Cold**
 🔗 [LinkedIn](https://www.linkedin.com/in/benhamamouch-othman)  
 📧 benhamamouchothman@cloudshell  
 🌍 [Official Website](https://oxyone-cloud.github.io/Benhamamouch-web)
+https://developers.google.com/profile/badges/community/innovators/cloud/2021_member?hl=fr
+https://developers.google.com/profile/badges/nvidia-developer?hl=fr
