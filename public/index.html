@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSCI – Smart Sustainable Cold Innovation</title>
+  <meta name="description" content="Solution intelligente de gestion et de suivi des chambres froides connectées." />
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Animation AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .hero {
+      background: linear-gradient(to right, #0077b6, #00b4d8);
+      color: white;
+    }
+    .fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    .fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-gray-50">
+  <!-- HEADER -->
+  <header class="hero text-center py-20">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">
+      SSCI – Smart Sustainable Cold Innovation
+    </h1>
+    <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">
+      Suivez et contrôlez vos chambres froides en temps réel avec notre technologie IoT connectée à Firebase.
+    </p>
+    <a href="#features" class="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg shadow hover:scale-105 transition">
+      Découvrir la solution
+    </a>
+  </header>
+
+  <!-- FONCTIONNALITÉS -->
+  <section id="features" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-12 text-gray-800" data-aos="fade-up">Fonctionnalités principales</h2>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="p-6 bg-gray-100 rounded-xl shadow hover:shadow-lg transition" data-aos="zoom-in">
+          <h3 class="text-2xl font-semibold mb-3 text-blue-700">Surveillance en temps réel</h3>
+          <p>Affichez la température et l’humidité en direct depuis vos capteurs connectés.</p>
+        </div>
+        <div class="p-6 bg-gray-100 rounded-xl shadow hover:shadow-lg transition" data-aos="zoom-in" data-aos-delay="150">
+          <h3 class="text-2xl font-semibold mb-3 text-blue-700">Alertes automatiques</h3>
+          <p>Recevez une notification instantanée lorsque les valeurs dépassent les seuils de sécurité.</p>
+        </div>
+        <div class="p-6 bg-gray-100 rounded-xl shadow hover:shadow-lg transition" data-aos="zoom-in" data-aos-delay="300">
+          <h3 class="text-2xl font-semibold mb-3 text-blue-700">Connexion Bluetooth & Cloud</h3>
+          <p>Synchronisez vos capteurs avec l’application SSCIAPPBLUETOOTH et Firebase Cloud.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION LIVE DATA -->
+  <section class="py-20 bg-blue-50 text-center">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-10 text-gray-800" data-aos="fade-up">Données en direct (exemple)</h2>
+
+      <div class="bg-white p-10 rounded-2xl shadow-lg inline-block" data-aos="zoom-in">
+        <div class="text-6xl font-bold text-blue-700">27.4 °C</div>
+        <p class="text-gray-500">Température actuelle</p>
+        <div class="mt-4 text-lg text-gray-600">Dernière mise à jour : <span id="time">--:--:--</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION CONTACT -->
+  <section id="contact" class="py-20 bg-white text-center">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-6 text-gray-800" data-aos="fade-up">Contactez-nous</h2>
+      <p class="text-gray-600 mb-8" data-aos="fade-up" data-aos-delay="150">
+        Vous souhaitez une démonstration ou une intégration personnalisée de SSCI dans votre entreprise ?
+      </p>
+      <a href="mailto:ssci.contact@gmail.com" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:scale-105 transition">
+        Envoyer un message
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-blue-900 text-white py-6 text-center">
+    <p>© 2025 SSCI Solution of Cold – Développé par Benhamamouch Othman</p>
+  </footer>
+
+  <script>
+    // Init animation AOS
+    AOS.init();
+
+    // Simule une donnée en temps réel (exemple simple)
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('time').textContent =
+        now.toLocaleTimeString('fr-FR', { hour12: false });
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
+</body>
+</html>
