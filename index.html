@@ -2,83 +2,84 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Chambre Froide Connectée</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #050505; font-family: sans-serif; }
-        
-        /* Ton style corrigé et complété */
-        #dashboard {
+        body { margin: 0; overflow: hidden; background: #050505; }
+        /* Ton code CSS */
+        #ui {
             position: absolute;
             top: 20px;
             left: 20px;
             color: white;
             font-family: sans-serif;
-            background: rgba(0,0,0,0.8);
-            padding: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
             border-radius: 8px;
+            z-index: 1000;
             border: 1px solid #00aaff;
-            z-index: 100;
-            width: 200px;
+            width: 180px;
         }
-
-        .temp-val { font-size: 32px; font-weight: bold; color: #00aaff; margin: 10px 0; }
-        input[type=range] { width: 100%; cursor: pointer; }
-        .status { font-size: 14px; font-weight: bold; color: #00ff88; }
+        .temp { font-size: 24px; color: #00aaff; font-weight: bold; }
+        input { width: 100%; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div id="dashboard">
-        <div style="font-size: 12px; color: #888;">TEMPÉRATURE</div>
-        <div id="tempDisplay" class="temp-val">4.0°C</div>
-        <input type="range" id="tempSlider" min="-20" max="15" value="4" step="0.5">
-        <div id="status" class="status">SYSTÈME OK</div>
+    <div id="ui">
+        <div style="font-size: 10px; color: #888;">CAPTEUR N°1</div>
+        <div id="val" class="temp">4.0°C</div>
+        <input type="range" id="slider" min="-20" max="15" value="4" step="0.1">
+        <div id="msg" style="font-size: 12px; color: #00ff88; margin-top:5px;">NORMAL</div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script>
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        camera.position.set(10, 8, 12);
-
-        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        // Lumière et Grille
+        scene.add(new THREE.AmbientLight(0xffffff, 0.8));
         scene.add(new THREE.GridHelper(20, 20, 0x444444, 0x222222));
 
-        // Boîte 3D
-        const geometry = new THREE.BoxGeometry(8, 5, 10);
-        const lineMat = new THREE.LineBasicMaterial({ color: 0x00aaff });
-        const wireframe = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), lineMat);
-        wireframe.position.y = 2.5;
-        scene.add(wireframe);
+        // Chambre Froide (Cube)
+        const geo = new THREE.BoxGeometry(8, 5, 8);
+        const mat = new THREE.MeshStandardMaterial({ color: 0x00aaff, transparent: true, opacity: 0.2 });
+        const box = new THREE.Mesh(geo, mat);
+        box.position.y = 2.5;
+        scene.add(box);
 
-        // Interaction
-        const slider = document.getElementById('tempSlider');
-        const display = document.getElementById('tempDisplay');
-        const status = document.getElementById('status');
+        const edgeMat = new THREE.LineBasicMaterial({ color: 0x00aaff });
+        const wire = new THREE.LineSegments(new THREE.EdgesGeometry(geo), edgeMat);
+        wire.position.y = 2.5;
+        scene.add(wire);
 
-        slider.addEventListener('input', (e) => {
-            const val = parseFloat(e.target.value);
-            display.innerText = val.toFixed(1) + "°C";
-            if(val > 7) {
-                lineMat.color.setHex(0xff4444);
-                display.style.color = "#ff4444";
-                status.innerText = "ALERTE CHALEUR";
-                status.style.color = "#ff4444";
+        camera.position.set(10, 10, 10);
+        camera.lookAt(0, 2.5, 0);
+
+        // Logique Slider
+        const slider = document.getElementById('slider');
+        const valTxt = document.getElementById('val');
+        const msgTxt = document.getElementById('msg');
+
+        slider.oninput = function() {
+            const v = parseFloat(this.value);
+            valTxt.innerText = v.toFixed(1) + "°C";
+            if(v > 7) {
+                edgeMat.color.setHex(0xff4444);
+                valTxt.style.color = "#ff4444";
+                msgTxt.innerText = "ALERTE";
+                msgTxt.style.color = "#ff4444";
             } else {
-                lineMat.color.setHex(0x00aaff);
-                display.style.color = "#00aaff";
-                status.innerText = "SYSTÈME OK";
-                status.style.color = "#00ff88";
+                edgeMat.color.setHex(0x00aaff);
+                valTxt.style.color = "#00aaff";
+                msgTxt.innerText = "NORMAL";
+                msgTxt.style.color = "#00ff88";
             }
-        });
+        };
 
-        function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
+        function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
         animate();
     </script>
 </body>
