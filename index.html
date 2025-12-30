@@ -2,35 +2,37 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Monitoring Chambre Froide</title>
+    <title>Chambre Froide Connectée</title>
     <style>
         body { margin: 0; overflow: hidden; background-color: #050505; font-family: sans-serif; }
-        /* LE TABLEAU DE BORD */
+        
+        /* Ton style corrigé et complété */
         #dashboard {
             position: absolute;
             top: 20px;
-            right: 20px;
-            width: 220px;
-            background: rgba(0, 0, 0, 0.9);
+            left: 20px;
             color: white;
+            font-family: sans-serif;
+            background: rgba(0,0,0,0.8);
             padding: 20px;
             border-radius: 8px;
-            border: 2px solid #00aaff;
-            z-index: 9999 !important; /* Pour être sûr qu'il soit devant la 3D */
+            border: 1px solid #00aaff;
+            z-index: 100;
+            width: 200px;
         }
-        .value { font-size: 28px; font-weight: bold; color: #00aaff; margin: 10px 0; }
+
+        .temp-val { font-size: 32px; font-weight: bold; color: #00aaff; margin: 10px 0; }
         input[type=range] { width: 100%; cursor: pointer; }
-        .label { font-size: 12px; color: #888; text-transform: uppercase; }
+        .status { font-size: 14px; font-weight: bold; color: #00ff88; }
     </style>
 </head>
 <body>
 
     <div id="dashboard">
-        <div class="label">Température</div>
-        <div id="tempDisplay" class="value">4.0°C</div>
+        <div style="font-size: 12px; color: #888;">TEMPÉRATURE</div>
+        <div id="tempDisplay" class="temp-val">4.0°C</div>
         <input type="range" id="tempSlider" min="-20" max="15" value="4" step="0.5">
-        <hr style="border:0; border-top:1px solid #333; margin:15px 0;">
-        <div id="status" style="color:#00ff88; font-weight:bold;">SYSTÈME OK</div>
+        <div id="status" class="status">SYSTÈME OK</div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -48,18 +50,14 @@
         scene.add(new THREE.AmbientLight(0xffffff, 0.6));
         scene.add(new THREE.GridHelper(20, 20, 0x444444, 0x222222));
 
+        // Boîte 3D
         const geometry = new THREE.BoxGeometry(8, 5, 10);
-        const material = new THREE.MeshStandardMaterial({ color: 0x00aaff, transparent: true, opacity: 0.2 });
-        const chamber = new THREE.Mesh(geometry, material);
-        chamber.position.y = 2.5;
-        scene.add(chamber);
-
         const lineMat = new THREE.LineBasicMaterial({ color: 0x00aaff });
         const wireframe = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), lineMat);
         wireframe.position.y = 2.5;
         scene.add(wireframe);
 
-        // LOGIQUE DU TABLEAU DE BORD
+        // Interaction
         const slider = document.getElementById('tempSlider');
         const display = document.getElementById('tempDisplay');
         const status = document.getElementById('status');
