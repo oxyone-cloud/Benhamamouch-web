@@ -1,0 +1,6 @@
+services:
+  - type: static
+    name: chambre-froide-3d-final
+    env: static
+    buildCommand: ''
+    publishDir: .
