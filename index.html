@@ -9,17 +9,16 @@
             position: absolute; top: 20px; right: 20px;
             width: 250px; background: rgba(0, 0, 0, 0.8);
             color: white; padding: 20px; border-radius: 10px;
-            border: 1px solid #444; box-shadow: 0 0 15px rgba(0,170,255,0.3);
+            border: 1px solid #444; box-shadow: 0 0 15px rgba(0,170,255,0.3); z-index: 10;
         }
         .stat { margin-bottom: 15px; }
         .label { font-size: 12px; color: #aaa; text-transform: uppercase; }
         .value { font-size: 24px; font-weight: bold; color: #00aaff; }
-        input[type=range] { width: 100%; margin-top: 10px; }
+        input[type=range] { width: 100%; margin-top: 10px; cursor: pointer; }
         .alert { color: #ff4444 !important; }
     </style>
 </head>
 <body>
-
     <div id="gui">
         <div class="stat">
             <div class="label">Température Actuelle</div>
@@ -27,8 +26,8 @@
             <input type="range" id="tempSlider" min="-25" max="15" value="4" step="0.5">
         </div>
         <div class="stat">
-            <div class="label">État du Compresseur</div>
-            <div id="statusDisplay" class="value" style="font-size: 16px;">ACTIF</div>
+            <div class="label">État du Système</div>
+            <div id="statusDisplay" class="value" style="font-size: 16px; color: #00ff88;">NORMAL</div>
         </div>
     </div>
 
@@ -36,7 +35,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <script>
-        // CONFIGURATION SCÈNE
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -46,42 +44,36 @@
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         camera.position.set(8, 6, 10);
 
-        // LUMIÈRES
-        const ambientLight = new THREE.AmbientLight(0x404040, 2);
+        const ambientLight = new THREE.AmbientLight(0x404040, 2); 
         scene.add(ambientLight);
-        const light = new THREE.PointLight(0xffffff, 1);
-        light.position.set(5, 10, 5);
+        const light = new THREE.PointLight(0xffffff, 1.5); 
+        light.position.set(5, 10, 5); 
         scene.add(light);
 
-        // SOL
-        const grid = new THREE.GridHelper(20, 20, 0x333333, 0x222222);
+        const grid = new THREE.GridHelper(20, 20, 0x333333, 0x222222); 
         scene.add(grid);
 
-        // CHAMBRE FROIDE (MURS)
-        const roomGroup = new THREE.Group();
+        // LA CHAMBRE FROIDE
         const geometry = new THREE.BoxGeometry(6, 4, 8);
         const material = new THREE.MeshStandardMaterial({ 
             color: 0xcccccc, 
             metalness: 0.8, 
-            roughness: 0.2,
-            transparent: true,
-            opacity: 0.6,
-            side: THREE.DoubleSide
+            roughness: 0.2, 
+            transparent: true, 
+            opacity: 0.7, 
+            side: THREE.DoubleSide 
         });
-        const mesh = new THREE.Mesh(geometry, material);
-        mesh.position.y = 2;
-        roomGroup.add(mesh);
+        const mesh = new THREE.Mesh(geometry, material); 
+        mesh.position.y = 2; 
+        scene.add(mesh);
 
-        // ARÊTES LUMINEUSES
         const edges = new THREE.EdgesGeometry(geometry);
-        const lineMat = new THREE.LineBasicMaterial({ color: 0x00aaff });
-        const lines = new THREE.LineSegments(edges, lineMat);
-        lines.position.y = 2;
-        roomGroup.add(lines);
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x00aaff, linewidth: 2 });
+        const lines = new THREE.LineSegments(edges, lineMat); 
+        lines.position.y = 2; 
+        scene.add(lines);
 
-        scene.add(roomGroup);
-
-        // LOGIQUE INTERACTIVE
+        // INTERACTION
         const slider = document.getElementById('tempSlider');
         const tempDisplay = document.getElementById('tempDisplay');
         const statusDisplay = document.getElementById('statusDisplay');
@@ -89,25 +81,23 @@
         slider.addEventListener('input', (e) => {
             const temp = parseFloat(e.target.value);
             tempDisplay.innerText = temp.toFixed(1) + "°C";
-            
-            // Changement de couleur selon la température
             if (temp > 7) {
-                lineMat.color.setHex(0xff4444); // Alerte rouge
+                lineMat.color.setHex(0xff4444);
                 tempDisplay.className = "value alert";
                 statusDisplay.innerText = "ALERTE : TEMP. ÉLEVÉE";
                 statusDisplay.style.color = "#ff4444";
             } else {
-                lineMat.color.setHex(0x00aaff); // Normal bleu
+                lineMat.color.setHex(0x00aaff);
                 tempDisplay.className = "value";
-                statusDisplay.innerText = "FONCTIONNEMENT NORMAL";
+                statusDisplay.innerText = "NORMAL";
                 statusDisplay.style.color = "#00ff88";
             }
         });
 
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
+        function animate() { 
+            requestAnimationFrame(animate); 
+            controls.update(); 
+            renderer.render(scene, camera); 
         }
         animate();
 
