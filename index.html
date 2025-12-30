@@ -2,110 +2,73 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Chambre Froide v2</title>
+    <title>Dashboard Chambre Froide PRO</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #050505; font-family: 'Segoe UI', sans-serif; }
+        body { margin: 0; overflow: hidden; background-color: #050505; font-family: sans-serif; }
         #gui {
             position: absolute; top: 20px; right: 20px;
-            width: 250px; background: rgba(0, 0, 0, 0.8);
+            width: 250px; background: rgba(0, 0, 0, 0.85);
             color: white; padding: 20px; border-radius: 10px;
-            border: 1px solid #444; box-shadow: 0 0 15px rgba(0,170,255,0.3); z-index: 10;
+            border: 1px solid #00aaff; z-index: 10;
         }
         .stat { margin-bottom: 15px; }
-        .label { font-size: 12px; color: #aaa; text-transform: uppercase; }
-        .value { font-size: 24px; font-weight: bold; color: #00aaff; }
-        input[type=range] { width: 100%; margin-top: 10px; cursor: pointer; }
-        .alert { color: #ff4444 !important; }
+        .label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+        .value { font-size: 28px; font-weight: bold; color: #00aaff; }
+        input[type=range] { width: 100%; cursor: pointer; margin-top: 10px; }
+        .alert-text { color: #ff4444 !important; }
     </style>
 </head>
 <body>
     <div id="gui">
         <div class="stat">
-            <div class="label">Température Actuelle</div>
+            <div class="label">Température (°C)</div>
             <div id="tempDisplay" class="value">4.0°C</div>
-            <input type="range" id="tempSlider" min="-25" max="15" value="4" step="0.5">
+            <input type="range" id="tempSlider" min="-20" max="15" value="4" step="0.5">
         </div>
         <div class="stat">
-            <div class="label">État du Système</div>
-            <div id="statusDisplay" class="value" style="font-size: 16px; color: #00ff88;">NORMAL</div>
+            <div class="label">Statut</div>
+            <div id="statusDisplay" style="color: #00ff88; font-weight: bold;">SYSTÈME OK</div>
         </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
     <script>
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
-
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        camera.position.set(8, 6, 10);
-
-        const ambientLight = new THREE.AmbientLight(0x404040, 2); 
-        scene.add(ambientLight);
-        const light = new THREE.PointLight(0xffffff, 1.5); 
-        light.position.set(5, 10, 5); 
-        scene.add(light);
-
-        const grid = new THREE.GridHelper(20, 20, 0x333333, 0x222222); 
-        scene.add(grid);
-
-        // LA CHAMBRE FROIDE
-        const geometry = new THREE.BoxGeometry(6, 4, 8);
-        const material = new THREE.MeshStandardMaterial({ 
-            color: 0xcccccc, 
-            metalness: 0.8, 
-            roughness: 0.2, 
-            transparent: true, 
-            opacity: 0.7, 
-            side: THREE.DoubleSide 
-        });
-        const mesh = new THREE.Mesh(geometry, material); 
-        mesh.position.y = 2; 
-        scene.add(mesh);
-
-        const edges = new THREE.EdgesGeometry(geometry);
+        camera.position.set(10, 8, 12);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const pLight = new THREE.PointLight(0xffffff, 1); pLight.position.set(10, 10, 10); scene.add(pLight);
+        scene.add(new THREE.GridHelper(20, 20, 0x444444, 0x222222));
+        const geometry = new THREE.BoxGeometry(8, 5, 10);
+        const material = new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.9, roughness: 0.1, transparent: true, opacity: 0.4 });
+        const chamber = new THREE.Mesh(geometry, material); chamber.position.y = 2.5; scene.add(chamber);
         const lineMat = new THREE.LineBasicMaterial({ color: 0x00aaff, linewidth: 2 });
-        const lines = new THREE.LineSegments(edges, lineMat); 
-        lines.position.y = 2; 
-        scene.add(lines);
-
-        // INTERACTION
+        const wireframe = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), lineMat);
+        wireframe.position.y = 2.5; scene.add(wireframe);
         const slider = document.getElementById('tempSlider');
         const tempDisplay = document.getElementById('tempDisplay');
         const statusDisplay = document.getElementById('statusDisplay');
-
         slider.addEventListener('input', (e) => {
-            const temp = parseFloat(e.target.value);
-            tempDisplay.innerText = temp.toFixed(1) + "°C";
-            if (temp > 7) {
+            const val = parseFloat(e.target.value);
+            tempDisplay.innerText = val.toFixed(1) + "°C";
+            if (val > 7) {
                 lineMat.color.setHex(0xff4444);
-                tempDisplay.className = "value alert";
-                statusDisplay.innerText = "ALERTE : TEMP. ÉLEVÉE";
+                tempDisplay.className = "value alert-text";
+                statusDisplay.innerText = "ALERTE TEMPÉRATURE";
                 statusDisplay.style.color = "#ff4444";
             } else {
                 lineMat.color.setHex(0x00aaff);
                 tempDisplay.className = "value";
-                statusDisplay.innerText = "NORMAL";
+                statusDisplay.innerText = "SYSTÈME OK";
                 statusDisplay.style.color = "#00ff88";
             }
         });
-
-        function animate() { 
-            requestAnimationFrame(animate); 
-            controls.update(); 
-            renderer.render(scene, camera); 
-        }
+        function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
         animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
     </script>
 </body>
 </html>
