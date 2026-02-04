@@ -1,0 +1,21 @@
+===========================================================
+DOCUMENTS DE CONFORMITÉ OXYONE - CAS PRATIQUE
+===========================================================
+PROJET : OxyONE - L'Usine du Futur (Secteur du Froid)
+AUTEUR : Benhamamouch Othman
+RÉFÉRENCE : Tiré du cas pratique de création de startup 
+            décrit dans l'ouvrage "L'Usine du Futur dans 
+            le Secteur du Froid".
+ÉDITEUR : Éditions Universitaires Européennes.
+PROTECTION : Convention de Berne / Propriété Intellectuelle.
+
+DESCRIPTION :
+Cette version de l'interface (établie le 21 Janvier 2026) 
+constitue la mise en œuvre technique et visuelle du 
+modèle théorique et pratique publié. Toute reproduction 
+du code ou de l'interface 3D est protégée au titre du 
+droit d'auteur.
+
+DATE DE VALIDATION : $(date)
+LIEU : Oran, Algérie.
+===========================================================
