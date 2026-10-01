@@ -1,19 +1,21 @@
 #  OxyONE / SSCI Cloud Ecosystem
 
-[!Live Portal](https://img.shields.io/badge/Web_Portal-Live-brightgreen?style=for-the-badge&logo=firebase)](https://oxyone-portal-cb9aa.web.app/)
-[!GitHub Repository](https://img.shields.io/badge/GitHub-Benhamamouch--web-blue?style=for-the-badge&logo=github)(shttps://github.com/oxyone-cloud/Benhamamouch-web)
+[!Live Portal](https://img.shields.io/badge/Web_Portal-Live-brightgreen?style=for-the-badge&logo=firebase)]
+(https://oxyone-portal-cb9aa.web.app/)
+[!GitHub Repository]
+(https://img.shields.io/badge/GitHub-Benhamamouch--web-blue?style=for-the-badge&logo=github)(shttps://github.com/oxyone-cloud/Benhamamouch-web)
 
 > Plateforme Cloud & IoT pour la gestion, la traÃ§abilitÃ© et le suivi de la chaÃ®ne du froid en temps rÃ©el (Application Cloud-SaaS, Flutter, Firebase & GCP Cloud Run).
 
 ---
 
-## ðŒ€ Liens Principaux
-* ð’— **Portail Web (Production) :* [.https://oxyone-portal-cb9aa.web.app/](https://oxyone-portal-cb9aa.web.app/)
-* ðŸ‘¦ì *DÃ©pÃ´t GitHub :* [https://github.com/oxyone-cloud/Benhamamouch-web](https://github.com/oxyone-cloud/Benhamamouch-web)
+ Liens Principaux
+Portail Web (Production) :* [.https://oxyone-portal-cb9aa.web.app/](https://oxyone-portal-cb9aa.web.app/)
+ GitHub :* [https://github.com/oxyone-cloud/Benhamamouch-web](https://github.com/oxyone-cloud/Benhamamouch-web)
 
 ---
 
-## ð“„
+
  SchÃ©ma Visuel de l'Architecture
 
 ```mermaid
@@ -25,15 +27,15 @@ flowchart TD
     end
 
     subgraph CLOUD_INFRA ["ð”° Google Cloud & Firebase Infrastructure"]
-        B1["à„¹ Firebase Hosting\n(oxyone-portal-cb9aa.web.app)"]
-        B2["ð”Ð F rebase Auth"]
-        B3["ð¨ Cloud Firestore\n(DonnÃ©es TÃ©lÃ©mÃ©triques IoT)"]
-        B4["à’¥ Cloud Functions\n(Digital Sense Core)"]
-        B5["à¦° GCP Cloud Run\n(Backend SSCI APIs)"]
+        B1[ Firebase Hosting\n(oxyone-portal-cb9aa.web.app)"]
+        B2[F rebase Auth"]
+        B3[Cloud Firestore\n(DonnÃ©es TÃ©lÃ©mÃ©triques IoT)"]
+        B4[Cloud Functions\n(Digital Sense Core)"]
+        B5[ GCP Cloud Run\n(Backend SSCI APIs)"]
       end
 
     subgraph IOT_SENSORS ["ð”¡ Capteurs IoT & Chambres Froides"]
-        C1["ð”¡ Capteurs TempÃ©rature/HumiditÃ© (Bluetooth BLE)"]
+        C1[¡ Capteurs TempÃ©rature/HumiditÃ© (Bluetooth BLE)"]
     end
 
     C1 -->|Sync Bluetooth / Telemetry| A2
@@ -47,7 +49,7 @@ flowchart TD
 
 ---
 
-## ð““ Inventaire des Applications & Projets
+Inventaire des Applications & Projets
 
 | Module / Application | Emplacement Cloud Shell | Stack Technique | RÃ´le / Description |
 | :-- | :-- | :-- | :-- |
