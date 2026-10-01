@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion de Stockage Cold - Version Premium</title>
+  
+  <!-- Favicon Logo Flutter -->
+  <link rel="icon" type="image/svg+xml" href="https://storage.googleapis.com/cms-storage-bucket/ec6703736110f00f0980.svg">
+  <link rel="shortcut icon" href="https://flutter.dev/assets/images/cn/flutter-cache.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://flutter.dev/assets/images/cn/flutter-cache.png">
+
+  <!-- GA4 Tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0N6L4B8M73"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0N6L4B8M73', { 'debug_mode': true });
+  </script>
+
+  <!-- Librairies JsBarcode et Html5Qrcode -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f4f8; margin: 0; padding: 20px; }
+    .container { max-width: 960px; margin: auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    h1 { color: #0277bd; margin-bottom: 5px; }
+    
+    /* En-tête Premium */
+    .premium-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+    .badge-premium { background: linear-gradient(135deg, #ffd700, #ffa500); color: #000; font-weight: bold; padding: 6px 12px; border-radius: 20px; font-size: 13px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); }
+
+    /* Écran de connexion */
+    #auth-overlay { max-width: 400px; margin: 80px auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); text-align: center; }
+    #auth-overlay h2 { color: #0277bd; margin-top: 0; }
+    .auth-field { margin-bottom: 15px; text-align: left; }
+    .auth-field label { font-size: 13px; font-weight: bold; color: #334155; }
+    .auth-field input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+    .btn-login { background-color: #0288d1; color: white; width: 100%; padding: 12px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 15px; }
+    .btn-login:hover { background-color: #01579b; }
+
+    /* Contenu de l'application */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; }
+    .card h2 { color: #01579b; font-size: 18px; margin-top: 0; border-bottom: 2px solid #0288d1; padding-bottom: 8px; }
+    label { font-weight: 600; color: #374151; font-size: 13px; display: block; margin-top: 10px; }
+    input, select, button { width: 100%; padding: 10px; margin-top: 5px; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; font-size: 14px; }
+    button { background-color: #0288d1; color: white; font-weight: bold; border: none; cursor: pointer; transition: background 0.2s; margin-top: 15px; }
+    button:hover { background-color: #01579b; }
+    .barcode-container { text-align: center; margin-top: 15px; background: white; padding: 10px; border-radius: 6px; border: 1px dashed #cbd5e1; }
+    #reader { width: 100%; margin-top: 10px; border-radius: 6px; overflow: hidden; }
+  </style>
+</head>
+<body>
+
+  <!-- BLOC D'AUTHENTIFICATION -->
+  <div id="auth-overlay">
+    <h2>Connexion Utilisateur</h2>
+    <span class="badge-premium">★ Version Premium ★</span>
+    <p style="font-size: 13px; color: #64748b; margin-top: 15px;">Veuillez saisir vos identifiants pour accéder à l'interface de gestion de stockage.</p>
+    
+    <div class="auth-field">
+      <label for="username">Identifiant / Utilisateur :</label>
+      <input type="text" id="username" placeholder="ex: admin_cold">
+    </div>
+
+    <div class="auth-field">
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" placeholder="••••••••">
+    </div>
+
+    <button class="btn-login" onclick="validerConnexion()">Se Connecter</button>
+    <p id="auth-error" style="color: #dc2626; font-size: 13px; display: none; margin-top: 10px;">Identifiant ou mot de passe incorrect.</p>
+  </div>
+
+  <!-- INTERFACE DE GESTION (MASQUÉE PAR DÉFAUT) -->
+  <div class="container" id="app-content" style="display: none;">
+    
+    <div class="premium-header">
+      <h1>Gestion de Stockage Cold</h1>
+      <span class="badge-premium">★ Version Premium ★</span>
+    </div>
+
+    <div class="grid">
+      <!-- SECTION GENERATEUR CODE-BARRES & STOCK -->
+      <div class="card">
+        <h2>Génération & Mouvement de Stock</h2>
+        <label for="emplacement">Chambre Froide / Emplacement :</label>
+        <select id="emplacement">
+          <option value="Chambre_A1">Chambre Froide A1 (-18.5°C)</option>
+          <option value="Chambre_B2">Chambre Froide B2 (-22.0°C)</option>
+          <option value="Zone_Aptitude">Zone de Préparation (+4.0°C)</option>
+        </select>
+
+        <label for="refProduit">Référence Produit / Palette :</label>
+        <input type="text" id="refProduit" value="COLD-PAL-8840" placeholder="Ex: COLD-PAL-1234">
+
+        <label for="tempCapture">Température mesurée (°C) :</label>
+        <input type="number" id="tempCapture" value="-18.5" step="0.1">
+
+        <button onclick="genererCodeEtMouvement('ENTREE')">+ Enregistrer Entrée de Stock</button>
+        <button onclick="genererCodeEtMouvement('SORTIE')" style="background-color: #64748b;">- Enregistrer Sortie de Stock</button>
+
+        <div class="barcode-container">
+          <svg id="barcode"></svg>
+        </div>
+      </div>
+
+      <!-- SECTION SCANNER PAR CAMERA -->
+      <div class="card">
+        <h2>Numérisation / Scanner Caméra</h2>
+        <p style="font-size: 13px; color: #64748b;">Scannez le code-barres de la palette pour vérifier le stock et la température associée.</p>
+        
+        <button onclick="demarrerScanner()" style="background-color: #059669;">Activer la Caméra</button>
+        <div id="reader"></div>
+
+        <label>Dernier code scanné :</label>
+        <input type="text" id="scanResult" readonly placeholder="Aucun scan pour le moment" style="background: #f1f5f9; font-weight: bold; color: #059669;">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function validerConnexion() {
+      let user = document.getElementById('username').value;
+      let pass = document.getElementById('password').value;
+
+      // Validation simple pour l'accès interface
+      if (user.trim() !== "" && pass.trim() !== "") {
+        document.getElementById('auth-overlay').style.display = 'none';
+        document.getElementById('app-content').style.display = 'block';
+
+        // Envoi de l'événement de connexion à GA4
+        gtag('event', 'login_success', {
+          'user_id': user,
+          'version': 'Premium'
+        });
+
+        actualiserCodeBarre();
+      } else {
+        document.getElementById('auth-error').style.display = 'block';
+      }
+    }
+
+    function actualiserCodeBarre() {
+      let code = document.getElementById('refProduit').value;
+      if(code) {
+        JsBarcode("#barcode", code, {
+          format: "CODE128",
+          lineColor: "#0f172a",
+          width: 2,
+          height: 55,
+          displayValue: true
+        });
+      }
+    }
+
+    function genererCodeEtMouvement(typeAction) {
+      let ref = document.getElementById('refProduit').value;
+      let emp = document.getElementById('emplacement').value;
+      let temp = document.getElementById('tempCapture').value;
+
+      actualiserCodeBarre();
+
+      gtag('event', 'stock_mouvement', {
+        'action_type': typeAction,
+        'reference_produit': ref,
+        'emplacement': emp,
+        'temperature': parseFloat(temp)
+      });
+
+      alert('Action [' + typeAction + '] enregistrée pour ' + ref + ' dans ' + emp + ' (' + temp + '°C).');
+    }
+
+    function demarrerScanner() {
+      const html5Scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 220 });
+      html5Scanner.render((decodedText) => {
+        document.getElementById('scanResult').value = decodedText;
+        document.getElementById('refProduit').value = decodedText;
+        actualiserCodeBarre();
+
+        gtag('event', 'scan_barcode_success', {
+          'code_scanne': decodedText
+        });
+
+        html5Scanner.clear();
+      });
+    }
+  </script>
+
+</body>
+</html>
