@@ -1,38 +1,39 @@
-# 6 OxyONE / SSCI Cloud Ecosystem
+#  OxyONE / SSCI Cloud Ecosystem
 
 [!Live Portal](https://img.shields.io/badge/Web_Portal-Live-brightgreen?style=for-the-badge&logo=firebase)](https://oxyone-portal-cb9aa.web.app/)
 [!GitHub Repository](https://img.shields.io/badge/GitHub-Benhamamouch--web-blue?style=for-the-badge&logo=github)(shttps://github.com/oxyone-cloud/Benhamamouch-web)
 
-> Plateforme Cloud & IoT pour la gestion, la traçabilité et le suivi de la chaîne du froid en temps réel (Application Cloud-SaaS, Flutter, Firebase & GCP Cloud Run).
+> Plateforme Cloud & IoT pour la gestion, la traÃ§abilitÃ© et le suivi de la chaÃ®ne du froid en temps rÃ©el (Application Cloud-SaaS, Flutter, Firebase & GCP Cloud Run).
 
 ---
 
-## 𝌀 Liens Principaux
-* 𝒗 **Portail Web (Production) :* [.https://oxyone-portal-cb9aa.web.app/](https://oxyone-portal-cb9aa.web.app/)
-* 👦� *Dépôt GitHub :* [https://github.com/oxyone-cloud/Benhamamouch-web](https://github.com/oxyone-cloud/Benhamamouch-web)
+## ðŒ€ Liens Principaux
+* ð’— **Portail Web (Production) :* [.https://oxyone-portal-cb9aa.web.app/](https://oxyone-portal-cb9aa.web.app/)
+* ðŸ‘¦ì *DÃ©pÃ´t GitHub :* [https://github.com/oxyone-cloud/Benhamamouch-web](https://github.com/oxyone-cloud/Benhamamouch-web)
 
 ---
 
-## � Schéma Visuel de l'Architecture
+## ð“„
+ SchÃ©ma Visuel de l'Architecture
 
 ```mermaid
 flowchart TD
-    subgraph FRONTEND ["𝒝 Front-End Applications (Flutter / Web / Mobile)"]
-        A1["���� OxyONE App"]
-        A2["���� Cold Storage App"]
-        A3["����Omart Tracking System"]
+    subgraph FRONTEND ["ð’ Front-End Applications (Flutter / Web / Mobile)"]
+        A1["à‡„ OxyONE App"]
+        A2["à‡ƒ Cold Storage App"]
+        A3["à’¡Omart Tracking System"]
     end
 
-    subgraph CLOUD_INFRA ["𝔰 Google Cloud & Firebase Infrastructure"]
-        B1["���� Firebase Hosting\n(oxyone-portal-cb9aa.web.app)"]
-        B2["�� F rebase Auth"]
-        B3["𝐨 Cloud Firestore\n(Données Télémétriques IoT)"]
-        B4["���� Cloud Functions\n(Digital Sense Core)"]
-        B5["���� GCP Cloud Run\n(Backend SSCI APIs)"]
+    subgraph CLOUD_INFRA ["ð”° Google Cloud & Firebase Infrastructure"]
+        B1["à„¹ Firebase Hosting\n(oxyone-portal-cb9aa.web.app)"]
+        B2["ð”Ð F rebase Auth"]
+        B3["ð¨ Cloud Firestore\n(DonnÃ©es TÃ©lÃ©mÃ©triques IoT)"]
+        B4["à’¥ Cloud Functions\n(Digital Sense Core)"]
+        B5["à¦° GCP Cloud Run\n(Backend SSCI APIs)"]
       end
 
-    subgraph IOT_SENSORS ["𝔡 Capteurs IoT & Chambres Froides"]
-        C1["𝔡 Capteurs Température/Humidité (Bluetooth BLE)"]
+    subgraph IOT_SENSORS ["ð”¡ Capteurs IoT & Chambres Froides"]
+        C1["ð”¡ Capteurs TempÃ©rature/HumiditÃ© (Bluetooth BLE)"]
     end
 
     C1 -->|Sync Bluetooth / Telemetry| A2
@@ -46,19 +47,19 @@ flowchart TD
 
 ---
 
-## 𝓓 Inventaire des Applications & Projets
+## ð““ Inventaire des Applications & Projets
 
-| Module / Application | Emplacement Cloud Shell | Stack Technique | Rôle / Description |
+| Module / Application | Emplacement Cloud Shell | Stack Technique | RÃ´le / Description |
 | :-- | :-- | :-- | :-- |
 | **OxyONE App** | `~/oxyone-app` | Flutter / Firebase | Application globale de gestion |
-| **Cold Storage App** | `~/cold_storage_app` | Flutter Web | Suivi et contrôle des chambres froides |
-|| **Smart Tracking** | `~/smart_tracking_project` | Flutter / IoT | Systéme de géolocalisation et télémétrie |
-|| **Backend SSCI Cloud Run** | `~/backend-ssci-cloudrun` | Node.js / Docker / GCP | Microservices API & Ingestion de données |
+| **Cold Storage App** | `~/cold_storage_app` | Flutter Web | Suivi et contrÃ´le des chambres froides |
+|| **Smart Tracking** | `~/smart_tracking_project` | Flutter / IoT | SystÃ©me de gÃ©olocalisation et tÃ©lÃ©mÃ©trie |
+|| **Backend SSCI Cloud Run** | `~/backend-ssci-cloudrun` | Node.js / Docker / GCP | Microservices API & Ingestion de donnÃ©es |
 || **Digital Sense Core** | g`/digital_sense_core` | Firebase Functions | Moteur de traitement d'alertes & analytique |
 || **Gestion Stockage Web** | `~/gestion-stockage-web` | HTML5 / JS / Firebase | Console web d'administration de stockage |
 
 ---
 
-## ρ Contact
+## Ï Contact
 * **Auteur :* Othman Benhamamouch
 ) **Projet :* SSCI Solution of Cold / OxyONE
