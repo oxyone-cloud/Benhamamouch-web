@@ -1,3 +1,5 @@
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0000--1250--8205-A6CE39?style=flat&logo=orcid&logoColor=white)](https://orcid.org/0009-0000-1250-8205)
+
 # 🚀 OxyONE / SSCI Cloud Ecosystem
 
 [![Live Portal](https://img.shields.io/badge/Web_Portal-Live-brightgreen?style=for-the-badge&logo=firebase)](https://oxyone-portal-cb9aa.web.app/)
@@ -16,11 +18,15 @@ flowchart TD
     end
 
     subgraph CLOUD_INFRA ["☁️ Google Cloud & Firebase Infrastructure"]
-        B1["🔥 Firebase Hosting\n(oxyone-portal-cb9aa.web.app)"]
+        B1["🔥 Firebase Hosting
+(oxyone-portal-cb9aa.web.app)"]
         B2["🔐 Firebase Auth"]
-        B3["📊 Cloud Firestore\n(Données Télémétriques IoT)"]
-        B4["⚡ Cloud Functions\n(Digital Sense Core)"]
-        B5["🐳 GCP Cloud Run\n(Backend SSCI APIs)"]
+        B3["📊 Cloud Firestore
+(Données Télémétriques IoT)"]
+        B4["⚡ Cloud Functions
+(Digital Sense Core)"]
+        B5["🐳 GCP Cloud Run
+(Backend SSCI APIs)"]
     end
 
     subgraph IOT_SENSORS ["📟 Capteurs IoT & Chambres Froides"]
@@ -53,4 +59,3 @@ Firebase Services : Authentication, Cloud Firestore (Base NoSQL temps réel), Cl
 Auteur : Othman Benhamamouch
 
 Projet : SSCI Solution of Cold / OxyONE
-
