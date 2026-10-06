@@ -59,3 +59,7 @@ Firebase Services : Authentication, Cloud Firestore (Base NoSQL temps réel), Cl
 Auteur : Othman Benhamamouch
 
 Projet : SSCI Solution of Cold / OxyONE
+
+
+## Déploiement GCP
+Projet géré sur Google Cloud Shell ().
