@@ -58,3 +58,6 @@ flowchart TD
     B1 --> B2
     B3 --> B4
     B4 --> B5
+<a href="https://www.codehype.ai/product/oxyone?utm_source=codehype_badge" target="_blank" rel="noopener noreferrer">
+  <img src="https://www.codehype.ai/badges/oxyone.svg?variant=find-us&v=20" alt="Featured on CodeHype" width="180" height="65" loading="lazy" decoding="async" style="display:inline-block;border:0;width:100%;max-width:180px;height:auto;max-height:65px;" />
+</a>
